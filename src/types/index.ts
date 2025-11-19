@@ -48,6 +48,34 @@ export interface NovelDetail extends Novel {
 }
 
 /**
+ * 小说详情中的book对象
+ */
+export interface BookInfo {
+  id: number;
+  is_promotion: number;
+  title: string;
+  content?: string;
+  description?: string;
+  summary?: string;
+  cover?: string;
+}
+
+/**
+ * 推广信息
+ */
+export interface PromotionInfo {
+  share_link?: string;
+}
+
+/**
+ * 小说详情响应数据
+ */
+export interface NovelDetailResponse {
+  book: BookInfo;
+  promotion: PromotionInfo;
+}
+
+/**
  * 分页信息
  */
 export interface Paginate {

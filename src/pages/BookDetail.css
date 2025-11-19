@@ -257,6 +257,7 @@ body[data-reading-theme="dark"] .book-content-card.dark-mode {
   justify-content: center;
   pointer-events: auto;
   z-index: 11;
+  max-width: 90%;
 }
 
 .overlay-copy-button {
@@ -286,6 +287,16 @@ body[data-reading-theme="dark"] .book-content-card.dark-mode {
     padding: 0 16px;
   }
 
+  .overlay-content .ant-qrcode {
+    width: 140px !important;
+    height: 140px !important;
+  }
+
+  .overlay-content img {
+    width: 180px !important;
+    height: 180px !important;
+  }
+
   .overlay-copy-button {
     height: 40px;
     padding: 0 24px;
@@ -301,6 +312,16 @@ body[data-reading-theme="dark"] .book-content-card.dark-mode {
   .overlay-content {
     bottom: 20px;
     padding: 0 12px;
+  }
+
+  .overlay-content .ant-qrcode {
+    width: 120px !important;
+    height: 120px !important;
+  }
+
+  .overlay-content img {
+    width: 150px !important;
+    height: 150px !important;
   }
 
   .overlay-copy-button {

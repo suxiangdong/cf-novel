@@ -9,7 +9,8 @@ import type {
   NovelDetail, 
   NovelListResponse,
   GetNovelListParams,
-  GetCategoryListParams
+  GetCategoryListParams,
+  NovelDetailResponse
 } from '../types';
 
 // API 基础地址
@@ -85,10 +86,10 @@ export const getHotNovelList = async (): Promise<ApiResponse<Novel[]>> => {
  * 获取小说详情
  * @param id - 小说ID
  */
-export const getNovelDetail = async (id: number | string): Promise<ApiResponse<NovelDetail>> => {
+export const getNovelDetail = async (id: number | string): Promise<ApiResponse<NovelDetailResponse>> => {
   try {
     const response = await fetch(`${API_BASE_URL}/v1/book/${id}`);
-    const result = await response.json() as ApiResponse<NovelDetail>;
+    const result = await response.json() as ApiResponse<NovelDetailResponse>;
     return result;
   } catch (error) {
     console.error('获取小说详情失败:', error);

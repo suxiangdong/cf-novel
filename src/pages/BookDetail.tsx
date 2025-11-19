@@ -8,16 +8,16 @@ import {
   message,
   Card,
   Space,
+  QRCode,
 } from 'antd';
 import {
   ArrowLeftOutlined,
   SunOutlined,
   MoonOutlined,
-  CopyOutlined,
 } from '@ant-design/icons';
 import { getNovelDetail } from '../api';
 import { setSEO } from '../utils/seo';
-import type { NovelDetail } from '../types';
+import type { NovelDetailResponse } from '../types';
 import './BookDetail.css';
 
 const { Content } = Layout;
@@ -29,7 +29,7 @@ function BookDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [book, setBook] = useState<NovelDetail | null>(null);
+  const [bookDetail, setBookDetail] = useState<NovelDetailResponse | null>(null);
   
   // 阅读模式：'light' 白天模式, 'dark' 黑夜模式
   const [theme, setTheme] = useState<Theme>(() => {
@@ -48,35 +48,6 @@ function BookDetail() {
     setTheme(prev => prev === 'light' ? 'dark' : 'light');
   };
 
-
-  // 复制抖音链接
-  const copyDouyinLink = () => {
-    const currentUrl = window.location.href;
-    // 这里可以根据实际需求构造抖音链接格式
-    // 假设是复制当前页面链接
-    navigator.clipboard.writeText(currentUrl).then(() => {
-      message.success('链接已复制到剪贴板');
-    }).catch(() => {
-      // 降级方案
-      const textArea = document.createElement('textarea');
-      textArea.value = currentUrl;
-      document.body.appendChild(textArea);
-      textArea.select();
-      try {
-        document.execCommand('copy');
-        message.success('链接已复制到剪贴板');
-      } catch (err) {
-        message.error('复制失败，请手动复制');
-      }
-      document.body.removeChild(textArea);
-    });
-  };
-
-  // 获取当前页面URL
-  const getCurrentUrl = (): string => {
-    return window.location.href;
-  };
-
   const fetchBookDetail = async () => {
     if (!id) return;
     
@@ -85,12 +56,13 @@ function BookDetail() {
       const result = await getNovelDetail(id);
       
       if (result.code === 0 && result.data) {
-        setBook(result.data);
+        setBookDetail(result.data);
         // 设置SEO信息
+        const book = result.data.book;
         setSEO({
-          title: result.data.title,
-          description: result.data.description || result.data.summary || `${result.data.title} - 朝戈读书在线阅读`,
-          image: result.data.cover,
+          title: book.title,
+          description: book.description || book.summary || `${book.title} - 朝戈读书在线阅读`,
+          image: book.cover,
           url: window.location.href,
         });
       } else {
@@ -132,9 +104,13 @@ function BookDetail() {
     );
   }
 
-  if (!book) {
+  if (!bookDetail) {
     return null;
   }
+
+  const book = bookDetail.book;
+  const promotion = bookDetail.promotion;
+  const hasShareLink = promotion?.share_link && promotion.share_link.trim() !== '';
 
   return (
     <Content className="book-detail-content" style={{ marginTop: 64 }}>
@@ -185,15 +161,41 @@ function BookDetail() {
                 <div className={`content-overlay ${theme === 'dark' ? 'dark-overlay' : ''}`}>
                   <div className="overlay-gradient" />
                   <div className="overlay-content">
-                    <Button
-                      type="primary"
-                      icon={<CopyOutlined />}
-                      onClick={copyDouyinLink}
-                      className="overlay-copy-button"
-                      size="large"
-                    >
-                      复制链接并在抖音App内打开
-                    </Button>
+                    <Space direction="vertical" size="large" align="center">
+                      {hasShareLink ? (
+                        <>
+                          <QRCode
+                            value={promotion.share_link!}
+                            size={160}
+                            errorLevel="M"
+                            style={{ background: 'white', padding: '8px' }}
+                          />
+                          <Text 
+                            style={{ 
+                              color: theme === 'dark' ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.85)',
+                              fontSize: '14px',
+                              fontWeight: 500,
+                              textAlign: 'center'
+                            }}
+                          >
+                            使用抖音App扫码阅读全文
+                          </Text>
+                        </>
+                      ) : (
+                        <Text 
+                          style={{ 
+                            color: theme === 'dark' ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.85)',
+                            fontSize: '16px',
+                            fontWeight: 500,
+                            textAlign: 'center',
+                            lineHeight: '1.6',
+                            maxWidth: '300px'
+                          }}
+                        >
+                          打开抖音App搜索"意近故事会"，阅读全文
+                        </Text>
+                      )}
+                    </Space>
                   </div>
                 </div>
               </div>
