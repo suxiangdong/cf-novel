@@ -118,13 +118,6 @@ function AppLayout() {
       {/* 底部 */}
       <Footer style={{ textAlign: 'center', background: 'linear-gradient(135deg, #764ba2 0%, #667eea 100%)', color: 'white', marginTop: 60 }}>
         <Space direction="vertical" size={16}>
-          <Space size="large" className="footer-links">
-            <a href="/about" style={{ color: 'white' }}>关于我们</a>
-            <a href="/contact" style={{ color: 'white' }}>联系方式</a>
-            <a href="/submit" style={{ color: 'white' }}>投稿须知</a>
-            <a href="/terms" style={{ color: 'white' }}>用户协议</a>
-            <a href="/privacy" style={{ color: 'white' }}>隐私政策</a>
-          </Space>
           <Text style={{ color: 'rgba(255,255,255,0.65)' }}>
             朝戈读书 ©2024 - 每一个短篇，都是一段完整的旅程
           </Text>
