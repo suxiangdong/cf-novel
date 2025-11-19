@@ -42,8 +42,3 @@ jobs:
       run: |
         scp -i /tmp/ecs_ssh_key ./cf-norvel.tar.gz ecs-user@182.92.156.58:~
         rm -rf /tmp/ecs_ssh_key
-
-    - name: Build
-      run: |
-        npm install
-        grunt
