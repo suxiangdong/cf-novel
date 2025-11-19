@@ -56,10 +56,38 @@ function Library() {
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(0);
   const searchTitle = searchParams.get('title') || '';
+  const categoryFirstId = searchParams.get('category_first_id');
+  const categorySecondId = searchParams.get('category_second_id');
   const [searchValue, setSearchValue] = useState(searchTitle);
   // 根据响应式布局计算：xs=2本/行, sm=3本/行, md=4本/行, lg=6本/行, xl=8本/行
   // 设置为24本/页，这样在不同屏幕下都能显示2-4行，体验较好
   const pageSize = 24;
+
+  // 从URL参数初始化分类选择（在分类数据加载完成后）
+  useEffect(() => {
+    if (allCategories.length > 0) {
+      if (categoryFirstId) {
+        const firstId = parseInt(categoryFirstId, 10);
+        if (!isNaN(firstId)) {
+          // 验证分类是否存在
+          const categoryExists = allCategories.some(cat => cat.id === firstId);
+          if (categoryExists) {
+            setSelectedParentCategory(firstId);
+          }
+        }
+      }
+      if (categorySecondId) {
+        const secondId = parseInt(categorySecondId, 10);
+        if (!isNaN(secondId)) {
+          // 验证分类是否存在
+          const categoryExists = allCategories.some(cat => cat.id === secondId);
+          if (categoryExists) {
+            setSelectedCategory(secondId);
+          }
+        }
+      }
+    }
+  }, [categoryFirstId, categorySecondId, allCategories]);
 
   useEffect(() => {
     fetchCategories();
@@ -169,26 +197,42 @@ function Library() {
   };
 
   const handleParentCategoryClick = (categoryId: number) => {
+    const newParams = new URLSearchParams(searchParams);
+    
     if (selectedParentCategory === categoryId) {
       // 取消选择
       setSelectedParentCategory(null);
       setSelectedCategory(null);
+      newParams.delete('category_first_id');
+      newParams.delete('category_second_id');
     } else {
       // 选择一级分类
       setSelectedParentCategory(categoryId);
       setSelectedCategory(null); // 清除二级分类选择
+      newParams.set('category_first_id', categoryId.toString());
+      newParams.delete('category_second_id');
     }
+    setSearchParams(newParams);
     setCurrentPage(1);
   };
 
   const handleSubCategoryClick = (categoryId: number) => {
+    const newParams = new URLSearchParams(searchParams);
+    
     if (selectedCategory === categoryId) {
       // 取消选择二级分类，但保留一级分类
       setSelectedCategory(null);
+      newParams.delete('category_second_id');
     } else {
       // 选择二级分类
       setSelectedCategory(categoryId);
+      newParams.set('category_second_id', categoryId.toString());
+      // 确保一级分类ID也在URL中
+      if (selectedParentCategory) {
+        newParams.set('category_first_id', selectedParentCategory.toString());
+      }
     }
+    setSearchParams(newParams);
     setCurrentPage(1);
   };
 
@@ -263,6 +307,10 @@ function Library() {
                 onClick={() => {
                   setSelectedParentCategory(null);
                   setSelectedCategory(null);
+                  const newParams = new URLSearchParams(searchParams);
+                  newParams.delete('category_first_id');
+                  newParams.delete('category_second_id');
+                  setSearchParams(newParams);
                   setCurrentPage(1);
                 }}
               >
@@ -293,6 +341,9 @@ function Library() {
                   className={`category-item category-item-all sub-category-item ${selectedCategory === null ? 'active' : ''}`}
                   onClick={() => {
                     setSelectedCategory(null);
+                    const newParams = new URLSearchParams(searchParams);
+                    newParams.delete('category_second_id');
+                    setSearchParams(newParams);
                     setCurrentPage(1);
                   }}
                 >

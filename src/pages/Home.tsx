@@ -269,6 +269,16 @@ function Home() {
                 key={cat.id} 
                 color={cat.color} 
                 style={{ fontSize: 16, padding: '8px 16px', cursor: 'pointer' }}
+                onClick={() => {
+                  // 根据分类层级跳转到书库页面
+                  if (cat.level === 1 || !cat.parent_id) {
+                    // 一级分类，跳转到书库并选中该分类
+                    navigate(`/library?category_first_id=${cat.id}`);
+                  } else {
+                    // 二级分类，需要同时传递一级和二级分类ID
+                    navigate(`/library?category_first_id=${cat.parent_id}&category_second_id=${cat.id}`);
+                  }
+                }}
               >
                 {cat.name}
               </Tag>
