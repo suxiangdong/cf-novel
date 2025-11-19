@@ -1,42 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
   <defs>
-    <linearGradient id="bookGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
-    </linearGradient>
-    <linearGradient id="networkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#41D1FF;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#667eea;stop-opacity:1" />
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1890ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#722ed1;stop-opacity:1" />
     </linearGradient>
   </defs>
-  
-  <!-- 书本主体 -->
-  <rect x="50" y="60" width="100" height="80" rx="5" fill="url(#bookGradient)" />
-  
-  <!-- 书页线条 -->
-  <line x1="70" y1="85" x2="130" y2="85" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round" />
-  <line x1="70" y1="105" x2="130" y2="105" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round" />
-  <line x1="70" y1="125" x2="130" y2="125" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round" />
-  
-  <!-- 书脊 -->
-  <rect x="50" y="60" width="8" height="80" rx="2" fill="rgba(0,0,0,0.2)" />
-  
-  <!-- 互联网连接节点 -->
-  <circle cx="100" cy="100" r="6" fill="url(#networkGradient)" />
-  
-  <!-- 连接线 -->
-  <line x1="100" y1="100" x2="70" y2="70" stroke="url(#networkGradient)" stroke-width="2.5" stroke-linecap="round" opacity="0.7" />
-  <line x1="100" y1="100" x2="130" y2="70" stroke="url(#networkGradient)" stroke-width="2.5" stroke-linecap="round" opacity="0.7" />
-  <line x1="100" y1="100" x2="70" y2="130" stroke="url(#networkGradient)" stroke-width="2.5" stroke-linecap="round" opacity="0.7" />
-  <line x1="100" y1="100" x2="130" y2="130" stroke="url(#networkGradient)" stroke-width="2.5" stroke-linecap="round" opacity="0.7" />
-  
-  <!-- 网络节点 -->
-  <circle cx="70" cy="70" r="4" fill="url(#networkGradient)" opacity="0.8" />
-  <circle cx="130" cy="70" r="4" fill="url(#networkGradient)" opacity="0.8" />
-  <circle cx="70" cy="130" r="4" fill="url(#networkGradient)" opacity="0.8" />
-  <circle cx="130" cy="130" r="4" fill="url(#networkGradient)" opacity="0.8" />
-  
-  <!-- WiFi信号波纹（可选装饰） -->
-  <circle cx="100" cy="100" r="25" fill="none" stroke="url(#networkGradient)" stroke-width="1.5" opacity="0.3" />
-  <circle cx="100" cy="100" r="35" fill="none" stroke="url(#networkGradient)" stroke-width="1.5" opacity="0.2" />
+  <rect width="100" height="100" rx="20" fill="url(#grad1)"/>
+  <path d="M30 30 L50 20 L70 30 L70 50 L50 60 L30 50 Z" fill="white" opacity="0.9"/>
+  <path d="M30 50 L50 40 L70 50 L70 70 L50 80 L30 70 Z" fill="white" opacity="0.7"/>
+  <path d="M30 70 L50 60 L70 70 L70 90 L50 100 L30 90 Z" fill="white" opacity="0.5"/>
 </svg>
