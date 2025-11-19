@@ -395,7 +395,8 @@ function Library() {
                     className="novel-card"
                     bodyStyle={{ padding: '12px' }}
                     onClick={() => {
-                      navigate(`/book/${novel.id}`);
+                      const bookId = novel.book_id || novel.id;
+                      navigate(`/book/${bookId}`);
                     }}
                   >
                     <Meta

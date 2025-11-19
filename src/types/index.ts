@@ -25,6 +25,7 @@ export interface Category {
  */
 export interface Novel {
   id: number;
+  book_id?: number; // 书籍ID，用于跳转到详情页
   title: string;
   summary: string;
   cover: string;

@@ -228,7 +228,8 @@ function Home() {
                               size="middle"
                               className="banner-read-btn"
                               onClick={() => {
-                                navigate(`/book/${novel.id}`);
+                                const bookId = novel.book_id || novel.id;
+                                navigate(`/book/${bookId}`);
                               }}
                             >
                               开始阅读
@@ -311,7 +312,10 @@ function Home() {
                 <Card 
                   hoverable 
                   className="list-card"
-                  onClick={() => navigate(`/book/${novel.id}`)}
+                  onClick={() => {
+                    const bookId = novel.book_id || novel.id;
+                    navigate(`/book/${bookId}`);
+                  }}
                   style={{ cursor: 'pointer' }}
                 >
                   <Row gutter={16}>
