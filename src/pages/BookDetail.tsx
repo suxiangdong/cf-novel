@@ -17,21 +17,24 @@ import {
 } from '@ant-design/icons';
 import { getNovelDetail } from '../api';
 import { setSEO } from '../utils/seo';
+import type { NovelDetail } from '../types';
 import './BookDetail.css';
 
 const { Content } = Layout;
 const { Title, Text, Paragraph } = Typography;
 
+type Theme = 'light' | 'dark';
+
 function BookDetail() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [book, setBook] = useState(null);
+  const [book, setBook] = useState<NovelDetail | null>(null);
   
   // 阅读模式：'light' 白天模式, 'dark' 黑夜模式
-  const [theme, setTheme] = useState(() => {
+  const [theme, setTheme] = useState<Theme>(() => {
     const savedTheme = localStorage.getItem('reading-theme');
-    return savedTheme || 'light';
+    return (savedTheme === 'light' || savedTheme === 'dark') ? savedTheme : 'light';
   });
 
 
@@ -70,11 +73,13 @@ function BookDetail() {
   };
 
   // 获取当前页面URL
-  const getCurrentUrl = () => {
+  const getCurrentUrl = (): string => {
     return window.location.href;
   };
 
   const fetchBookDetail = async () => {
+    if (!id) return;
+    
     try {
       setLoading(true);
       const result = await getNovelDetail(id);

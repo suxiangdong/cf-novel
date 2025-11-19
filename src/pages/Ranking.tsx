@@ -98,7 +98,7 @@ function Ranking() {
             </Button>
             <Button 
               size="large"
-              onClick={() => window.location.href = '/library'}
+              onClick={() => { window.location.href = '/library'; }}
               className="library-button"
             >
               浏览书库

@@ -12,6 +12,7 @@ import {
 import {
   BookOutlined,
 } from '@ant-design/icons';
+import type { MenuProps } from 'antd';
 
 const { Search } = Input;
 import './App.css';
@@ -40,7 +41,7 @@ function AppLayout() {
   const location = useLocation();
   const [searchValue, setSearchValue] = useState('');
   
-  const getSelectedKey = () => {
+  const getSelectedKey = (): string[] => {
     if (location.pathname === '/library') {
       return ['library'];
     } else if (location.pathname === '/ranking') {
@@ -49,7 +50,7 @@ function AppLayout() {
     return ['home'];
   };
 
-  const handleMenuClick = ({ key }) => {
+  const handleMenuClick: MenuProps['onClick'] = ({ key }) => {
     if (key === 'library') {
       navigate('/library');
     } else if (key === 'ranking') {
@@ -59,7 +60,7 @@ function AppLayout() {
     }
   };
 
-  const handleSearch = (value) => {
+  const handleSearch = (value: string) => {
     if (value && value.trim()) {
       navigate(`/library?title=${encodeURIComponent(value.trim())}`);
       setSearchValue('');
@@ -97,7 +98,7 @@ function AppLayout() {
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
               onSearch={handleSearch}
-              onPressEnter={(e) => handleSearch(e.target.value)}
+              onPressEnter={(e) => handleSearch((e.target as HTMLInputElement).value)}
               allowClear
               enterButton
             />

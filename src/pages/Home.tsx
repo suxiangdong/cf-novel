@@ -23,12 +23,13 @@ import {
 } from '@ant-design/icons';
 import { getCategoryList, getNovelList, getHotNovelList } from '../api';
 import { setSEO } from '../utils/seo';
+import type { Novel, CategoryWithColor } from '../types';
 
 const { Title, Text, Paragraph } = Typography;
 const { Meta } = Card;
 
 // 格式化字数显示
-const formatWordCount = (count) => {
+const formatWordCount = (count: number): string => {
   if (count >= 10000) {
     return `${(count / 10000).toFixed(1)}万字`;
   }
@@ -36,7 +37,14 @@ const formatWordCount = (count) => {
 };
 
 // 自定义轮播箭头组件
-const CustomArrow = ({ className, style, onClick, direction }) => {
+interface CustomArrowProps {
+  className?: string;
+  style?: React.CSSProperties;
+  onClick?: () => void;
+  direction: 'prev' | 'next';
+}
+
+const CustomArrow: React.FC<CustomArrowProps> = ({ className, style, onClick, direction }) => {
   return (
     <button
       className={className}
@@ -73,7 +81,7 @@ const CustomArrow = ({ className, style, onClick, direction }) => {
 
 function Home() {
   const navigate = useNavigate();
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<CategoryWithColor[]>([]);
   
   useEffect(() => {
     // 设置SEO信息
@@ -82,8 +90,8 @@ function Home() {
       description: '朝戈读书 - 每一个短篇，都是一段完整的旅程。用碎片时间，品味完整故事。',
     });
   }, []);
-  const [hotNovels, setHotNovels] = useState([]);
-  const [latestNovels, setLatestNovels] = useState([]);
+  const [hotNovels, setHotNovels] = useState<Novel[]>([]);
+  const [latestNovels, setLatestNovels] = useState<Novel[]>([]);
   const [loading, setLoading] = useState(true);
   const [novelsLoading, setNovelsLoading] = useState(true);
 
@@ -105,12 +113,9 @@ function Home() {
       const result = await getCategoryList();
       
       if (result.code === 0 && result.data) {
-        const categoriesWithColor = result.data.map((cat, index) => ({
-          id: cat.id,
-          name: cat.name,
+        const categoriesWithColor: CategoryWithColor[] = result.data.map((cat, index) => ({
+          ...cat,
           color: categoryColors[index % categoryColors.length],
-          level: cat.level,
-          parent_id: cat.parent_id
         }));
         setCategories(categoriesWithColor);
       } else {
@@ -131,7 +136,7 @@ function Home() {
       const latestResult = await getNovelList({ page: 1, page_size: 10 });
       
       if (hotResult.code === 0 && hotResult.data) {
-        const hotList = Array.isArray(hotResult.data) ? hotResult.data : (hotResult.data.list || []);
+        const hotList = Array.isArray(hotResult.data) ? hotResult.data : (hotResult.data as any).list || [];
         setHotNovels(hotList);
       }
       

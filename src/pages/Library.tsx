@@ -22,6 +22,7 @@ import {
 } from '@ant-design/icons';
 import { getNovelList, getCategoryList } from '../api';
 import { setSEO } from '../utils/seo';
+import type { Novel, CategoryWithColor } from '../types';
 
 const { Content } = Layout;
 const { Title, Text, Paragraph } = Typography;
@@ -29,7 +30,7 @@ const { Meta } = Card;
 const { Search } = Input;
 
 // 格式化字数显示
-const formatWordCount = (count) => {
+const formatWordCount = (count: number): string => {
   if (count >= 10000) {
     return `${(count / 10000).toFixed(1)}万字`;
   }
@@ -46,12 +47,12 @@ const categoryColors = [
 function Library() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-  const [novels, setNovels] = useState([]);
-  const [allCategories, setAllCategories] = useState([]);
-  const [subCategories, setSubCategories] = useState([]);
+  const [novels, setNovels] = useState<Novel[]>([]);
+  const [allCategories, setAllCategories] = useState<CategoryWithColor[]>([]);
+  const [subCategories, setSubCategories] = useState<CategoryWithColor[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedParentCategory, setSelectedParentCategory] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedParentCategory, setSelectedParentCategory] = useState<number | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(0);
   const searchTitle = searchParams.get('title') || '';
@@ -91,12 +92,9 @@ function Library() {
     try {
       const result = await getCategoryList();
       if (result.code === 0 && result.data) {
-        const categoriesWithColor = result.data.map((cat, index) => ({
-          id: cat.id,
-          name: cat.name,
+        const categoriesWithColor: CategoryWithColor[] = result.data.map((cat, index) => ({
+          ...cat,
           color: categoryColors[index % categoryColors.length],
-          level: cat.level,
-          parent_id: cat.parent_id
         }));
         setAllCategories(categoriesWithColor);
         // 分离一级和二级分类
@@ -108,17 +106,14 @@ function Library() {
     }
   };
 
-  const fetchSubCategories = async (parentId) => {
+  const fetchSubCategories = async (parentId: number) => {
     try {
       // 请求API获取二级分类，传入parent_id参数
       const result = await getCategoryList({ parent_id: parentId });
       if (result.code === 0 && result.data) {
-        const subCats = result.data.map((cat, index) => ({
-          id: cat.id,
-          name: cat.name,
+        const subCats: CategoryWithColor[] = result.data.map((cat, index) => ({
+          ...cat,
           color: categoryColors[index % categoryColors.length],
-          level: cat.level,
-          parent_id: cat.parent_id
         }));
         setSubCategories(subCats);
       }
@@ -130,7 +125,13 @@ function Library() {
   const fetchNovels = async () => {
     try {
       setLoading(true);
-      const params = {
+      const params: {
+        page: number;
+        page_size: number;
+        title?: string;
+        category_first_id?: number;
+        category_second_id?: number;
+      } = {
         page: currentPage,
         page_size: pageSize,
       };
@@ -154,7 +155,7 @@ function Library() {
       if (result.code === 0 && result.data) {
         setNovels(result.data.list || []);
         // 支持多种数据结构：result.data.total 或 result.data.paginate.total
-        const totalCount = result.data.total || result.data.paginate?.total || 0;
+        const totalCount = (result.data as any).total || result.data.paginate?.total || 0;
         setTotal(totalCount);
       } else {
         message.error('获取书籍列表失败：' + (result.msg || '未知错误'));
@@ -167,7 +168,7 @@ function Library() {
     }
   };
 
-  const handleParentCategoryClick = (categoryId) => {
+  const handleParentCategoryClick = (categoryId: number) => {
     if (selectedParentCategory === categoryId) {
       // 取消选择
       setSelectedParentCategory(null);
@@ -180,7 +181,7 @@ function Library() {
     setCurrentPage(1);
   };
 
-  const handleSubCategoryClick = (categoryId) => {
+  const handleSubCategoryClick = (categoryId: number) => {
     if (selectedCategory === categoryId) {
       // 取消选择二级分类，但保留一级分类
       setSelectedCategory(null);
@@ -191,13 +192,13 @@ function Library() {
     setCurrentPage(1);
   };
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: number) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // 处理搜索
-  const handleSearch = (value) => {
+  const handleSearch = (value: string) => {
     const trimmedValue = value?.trim() || '';
     const newParams = new URLSearchParams(searchParams);
     
@@ -212,7 +213,7 @@ function Library() {
   };
 
   // 处理搜索框输入
-  const handleSearchChange = (e) => {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
 
@@ -240,7 +241,7 @@ function Library() {
             value={searchValue}
             onChange={handleSearchChange}
             onSearch={handleSearch}
-            onPressEnter={(e) => handleSearch(e.target.value)}
+            onPressEnter={(e) => handleSearch((e.target as HTMLInputElement).value)}
             onClear={handleSearchClear}
             allowClear
             size="large"
