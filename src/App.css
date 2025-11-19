@@ -1,0 +1,716 @@
+/* Header */
+.header {
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 50%, #764ba2 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 15s ease infinite;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 16px;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.logo-section:hover {
+  transform: scale(1.05);
+}
+
+.logo-section .anticon {
+  color: #fff;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.logo-section h3 {
+  color: #fff !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.main-menu {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent !important;
+}
+
+/* 菜单项样式 */
+.main-menu .ant-menu-item {
+  color: rgba(255, 255, 255, 0.85) !important;
+  border-radius: 8px;
+  margin: 0 4px !important;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.main-menu .ant-menu-item:hover {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  transform: translateY(-2px);
+}
+
+.main-menu .ant-menu-item-selected {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.25) !important;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.main-menu .ant-menu-item-selected::after {
+  display: none;
+}
+
+.main-menu .ant-menu-item-active {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+.search-box {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 240px;
+}
+
+/* 确保 Search 组件在导航栏中正确对齐 */
+.search-box .ant-input-search {
+  width: 240px;
+}
+
+.search-box .ant-input-search .ant-input {
+  border-radius: 8px 0 0 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.search-box .ant-input-search .ant-input:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 1);
+}
+
+.search-box .ant-input-search .ant-input:focus {
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+.search-box .ant-input-search .ant-input::placeholder {
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.search-box .ant-input-search .ant-input-search-button {
+  border-radius: 0 8px 8px 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-left: none;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.search-box .ant-input-search .ant-input-search-button:hover {
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.search-box .ant-input-search .ant-input-search-button .anticon {
+  color: #667eea;
+}
+
+/* Banner Carousel */
+.banner-carousel {
+  margin-top: 64px;
+  background: #f0f2f5;
+}
+
+.banner-slide {
+  height: 400px;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px;
+}
+
+.banner-novel-slide {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 32px 40px;
+  height: 360px;
+  min-height: 360px;
+  position: relative;
+  z-index: 0;
+  overflow: visible;
+}
+
+.banner-novel-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+  position: relative;
+  z-index: 0;
+}
+
+/* 封面图区域 */
+.banner-cover-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.banner-cover {
+  transition: transform 0.3s ease;
+}
+
+.banner-cover:hover {
+  transform: scale(1.05);
+}
+
+.banner-cover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 100%);
+  pointer-events: none;
+}
+
+/* 小说信息区域 */
+.banner-novel-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding-left: 24px;
+}
+
+.banner-hot-tag {
+  font-size: 12px;
+  padding: 4px 12px;
+  margin-bottom: 12px;
+  border-radius: 4px;
+  align-self: flex-start;
+}
+
+.banner-title {
+  color: white !important;
+  margin: 0 0 16px 0 !important;
+  font-size: clamp(22px, 3.5vw, 32px) !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+}
+
+.banner-summary {
+  color: rgba(255,255,255,0.9) !important;
+  font-size: clamp(14px, 1.8vw, 16px) !important;
+  line-height: 1.7 !important;
+  margin: 0 0 20px 0 !important;
+}
+
+.banner-meta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0;
+  margin-top: 24px;
+}
+
+.banner-meta-text {
+  color: rgba(255,255,255,0.85) !important;
+  font-size: clamp(12px, 1.5vw, 14px) !important;
+}
+
+.banner-read-btn {
+  background: white !important;
+  border: none !important;
+  color: #667eea !important;
+  font-weight: 600 !important;
+  font-size: clamp(12px, 1.5vw, 14px) !important;
+  height: 36px !important;
+  padding: 0 20px !important;
+  border-radius: 6px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  transition: all 0.3s ease !important;
+  flex-shrink: 0;
+  margin-left: 0;
+}
+
+.banner-read-btn:hover {
+  background: rgba(255,255,255,0.95) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2) !important;
+}
+
+.banner-read-btn:active {
+  transform: translateY(0) !important;
+}
+
+/* 确保Carousel内部元素不会遮盖内容 */
+.banner-carousel .slick-slide {
+  position: relative;
+}
+
+.banner-carousel .slick-slide > div {
+  position: relative;
+}
+
+/* 确保轮播导航按钮可以点击 */
+.banner-carousel .slick-prev,
+.banner-carousel .slick-next {
+  z-index: 100 !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  position: absolute !important;
+}
+
+.banner-carousel .slick-prev {
+  left: 20px !important;
+}
+
+.banner-carousel .slick-next {
+  right: 20px !important;
+}
+
+/* 隐藏默认的箭头伪元素 */
+.banner-carousel .slick-prev:before,
+.banner-carousel .slick-next:before,
+.banner-carousel .slick-prev:after,
+.banner-carousel .slick-next:after {
+  display: none !important;
+  content: none !important;
+}
+
+.banner-carousel .slick-dots {
+  z-index: 100 !important;
+  bottom: 20px !important;
+}
+
+.banner-carousel .slick-dots li button {
+  background: rgba(255,255,255,0.5) !important;
+  opacity: 1 !important;
+}
+
+.banner-carousel .slick-dots li.slick-active button {
+  background: white !important;
+}
+
+/* Content Sections */
+.category-section,
+.novels-section {
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 0 24px;
+}
+
+/* 书库分类筛选样式 */
+.category-filter-section {
+  margin-bottom: 32px;
+  padding: 24px;
+  background: #fafafa;
+  border-radius: 12px;
+  border: 1px solid #e8e8e8;
+}
+
+.category-group {
+  margin-bottom: 20px;
+}
+
+.category-group:last-child {
+  margin-bottom: 0;
+}
+
+.sub-category-group {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px dashed #d9d9d9;
+}
+
+.category-group-header {
+  margin-bottom: 12px;
+}
+
+.category-group-title {
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+}
+
+.category-group-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.category-item {
+  padding: 8px 20px;
+  background: white;
+  border: 1px solid #d9d9d9;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.category-item:hover {
+  border-color: #667eea;
+  color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+}
+
+.category-item.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #667eea;
+  color: white;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.category-item-all {
+  background: #f0f0f0;
+  border-color: #d9d9d9;
+  font-weight: 500;
+}
+
+.category-item-all.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #667eea;
+  color: white;
+}
+
+.sub-category-item {
+  padding: 6px 16px;
+  font-size: 13px;
+  background: #f8f8f8;
+}
+
+.sub-category-item.active {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  border-color: #4facfe;
+}
+
+/* 书库搜索框响应式 */
+.library-search-input {
+  max-width: 600px;
+  width: 100%;
+}
+
+.library-content {
+  padding: 24px;
+}
+
+.library-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .library-content {
+    padding: 16px;
+  }
+
+  .library-search-input {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .library-content {
+    padding: 12px;
+  }
+
+  .library-container h2 {
+    font-size: 20px !important;
+    margin-bottom: 16px !important;
+  }
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .category-filter-section {
+    padding: 16px;
+  }
+  
+  .category-group-content {
+    gap: 8px;
+  }
+  
+  .category-item {
+    padding: 6px 16px;
+    font-size: 13px;
+  }
+  
+  .sub-category-item {
+    padding: 5px 12px;
+    font-size: 12px;
+  }
+}
+
+/* Novel Cards */
+.novel-card {
+  height: 100%;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.novel-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.novel-card .ant-card-cover {
+  overflow: hidden;
+}
+
+.novel-card .ant-card-body {
+  padding: 16px;
+}
+
+/* List Card */
+.list-card {
+  transition: box-shadow 0.3s;
+}
+
+.list-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Footer */
+.footer-links {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.9) !important;
+  transition: all 0.3s ease;
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+/* ICP备案号样式 */
+.ant-layout-footer a[href*="beian.miit.gov.cn"] {
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.ant-layout-footer a[href*="beian.miit.gov.cn"]:hover {
+  color: #fff !important;
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .search-input {
+    width: 180px;
+  }
+  
+  .search-box .ant-input-search {
+    width: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0 12px;
+    height: auto;
+    min-height: 64px;
+  }
+  
+  .header-content {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  
+  .logo-section {
+    flex: 1;
+  }
+  
+  .logo-section h3 {
+    font-size: 18px !important;
+  }
+  
+  .main-menu {
+    order: 3;
+    width: 100%;
+    flex: none;
+  }
+  
+  .main-menu .ant-menu-item {
+    padding: 0 12px !important;
+    font-size: 14px;
+    margin: 0 2px !important;
+  }
+  
+  .search-box {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .search-input {
+    width: 100%;
+  }
+  
+  .search-box .ant-input-search {
+    width: 100%;
+  }
+
+  .search-box .ant-input-search .ant-input-search-button {
+    padding: 0 12px;
+  }
+  
+  .banner-slide {
+    height: 280px;
+    padding: 24px 16px;
+  }
+  
+  .banner-novel-slide {
+    height: auto;
+    min-height: 320px;
+    padding: 24px 20px;
+  }
+  
+  .banner-novel-info {
+    padding-left: 0 !important;
+    padding-top: 20px;
+  }
+  
+  .banner-cover-wrapper {
+    padding-bottom: 0;
+  }
+  
+  .banner-slide h1 {
+    font-size: 28px !important;
+  }
+  
+  .banner-slide span {
+    font-size: 16px !important;
+  }
+  
+  .category-section,
+  .novels-section {
+    margin: 24px auto;
+    padding: 0 12px;
+  }
+  
+  .category-section h3,
+  .novels-section h3 {
+    font-size: 20px !important;
+  }
+  
+  .footer-links {
+    font-size: 14px;
+  }
+  
+  .footer-links a {
+    padding: 4px 8px;
+  }
+}
+
+@media (max-width: 576px) {
+  .banner-slide {
+    height: 220px;
+    padding: 20px 12px;
+  }
+  
+  .banner-novel-slide {
+    height: auto;
+    min-height: 280px;
+    padding: 20px 16px;
+  }
+  
+  .banner-title {
+    font-size: clamp(20px, 4vw, 24px) !important;
+    margin-bottom: 12px !important;
+  }
+  
+  .banner-summary {
+    font-size: clamp(13px, 2vw, 15px) !important;
+    margin-bottom: 16px !important;
+  }
+  
+  .banner-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .banner-read-btn {
+    height: 34px !important;
+    padding: 0 16px !important;
+    font-size: clamp(12px, 2vw, 14px) !important;
+    margin-left: 0 !important;
+    width: 100%;
+  }
+  
+  .banner-slide h1 {
+    font-size: 24px !important;
+    margin-bottom: 8px !important;
+  }
+  
+  .banner-slide span {
+    font-size: 14px !important;
+  }
+  
+  .novel-card .ant-card-cover > div {
+    aspect-ratio: 3/4 !important;
+    height: auto !important;
+  }
+  
+  .list-card .ant-col-6 > div {
+    aspect-ratio: 3/4 !important;
+    height: auto !important;
+  }
+  
+  .category-section h3,
+  .novels-section h3 {
+    font-size: 18px !important;
+    margin-bottom: 12px !important;
+  }
+}
+

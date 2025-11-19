@@ -1,0 +1,286 @@
+.ranking-content {
+  padding: 24px;
+}
+
+.ranking-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 24px;
+}
+
+@media (max-width: 768px) {
+  .ranking-content {
+    padding: 16px;
+  }
+
+  .ranking-container {
+    padding: 40px 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .ranking-content {
+    padding: 12px;
+  }
+
+  .ranking-container {
+    padding: 20px 12px;
+  }
+}
+
+.coming-soon-content {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+/* 图标区域 */
+.coming-soon-icon {
+  margin-bottom: 40px;
+}
+
+.icon-wrapper {
+  display: inline-block;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.trophy-icon {
+  font-size: 64px;
+  color: white;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.4);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* 标题样式 */
+.coming-soon-title {
+  font-size: 48px !important;
+  font-weight: 700 !important;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 24px !important;
+  line-height: 1.2 !important;
+}
+
+.coming-soon-subtitle {
+  font-size: 18px;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto 60px;
+  line-height: 1.8;
+}
+
+/* 功能卡片 */
+.feature-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-bottom: 60px;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.feature-card {
+  border-radius: 12px;
+  padding: 32px 24px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid #e8e8e8;
+  background: white;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  border-color: #667eea;
+}
+
+.feature-icon {
+  font-size: 48px;
+  color: #667eea;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.feature-title {
+  margin-bottom: 12px !important;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+}
+
+.feature-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  display: block;
+}
+
+/* 提示信息 */
+.coming-soon-notice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px 32px;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  border-radius: 12px;
+  margin-bottom: 40px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.notice-icon {
+  font-size: 24px;
+  color: #667eea;
+}
+
+.notice-text {
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
+}
+
+/* 按钮区域 */
+.action-buttons {
+  margin-top: 40px;
+}
+
+.back-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  height: 48px;
+  padding: 0 32px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+.library-button {
+  height: 48px;
+  padding: 0 32px;
+  font-size: 16px;
+  border-radius: 8px;
+  border-color: #667eea;
+  color: #667eea;
+  transition: all 0.3s ease;
+}
+
+.library-button:hover {
+  border-color: #764ba2;
+  color: #764ba2;
+  transform: translateY(-2px);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .ranking-container {
+    padding: 40px 16px;
+  }
+
+  .coming-soon-content {
+    padding: 20px 10px;
+  }
+
+  .icon-wrapper {
+    width: 100px;
+    height: 100px;
+  }
+
+  .trophy-icon {
+    font-size: 52px;
+  }
+
+  .coming-soon-title {
+    font-size: 36px !important;
+  }
+
+  .coming-soon-subtitle {
+    font-size: 16px;
+    margin-bottom: 40px;
+  }
+
+  .feature-cards {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .feature-card {
+    padding: 24px 20px;
+  }
+
+  .feature-icon {
+    font-size: 40px;
+  }
+
+  .coming-soon-notice {
+    padding: 16px 24px;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .back-button,
+  .library-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .coming-soon-title {
+    font-size: 28px !important;
+  }
+
+  .coming-soon-subtitle {
+    font-size: 14px;
+  }
+
+  .icon-wrapper {
+    width: 80px;
+    height: 80px;
+  }
+
+  .trophy-icon {
+    font-size: 40px;
+  }
+}
+
